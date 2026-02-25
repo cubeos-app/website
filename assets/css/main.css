@@ -488,6 +488,125 @@ code { font-family: var(--font-mono); font-size: 0.9em; }
   max-width: 100%;
 }
 
+/* ---- Code Blocks (guide cards) ---- */
+.code-block {
+  margin: 12px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
+}
+.code-block-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+.code-block-body {
+  padding: 16px 20px;
+  overflow-x: auto;
+  margin: 0;
+}
+.code-block-body code {
+  color: var(--teal);
+  font-size: 0.9rem;
+  white-space: pre;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ---- Variants Table ---- */
+.variants-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin-top: 8px;
+}
+.variants-table th,
+.variants-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.variants-table th {
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+.variants-table td {
+  color: var(--text-secondary);
+}
+.variants-table td code {
+  background: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: var(--teal);
+}
+
+/* ---- Command List (management tab) ---- */
+.command-list {
+  margin-top: 8px;
+}
+.command-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.command-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.command-desc {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-top: 8px;
+}
+
+/* ---- 404 Error Page ---- */
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px - 120px);
+  padding: 80px 0;
+}
+.error-content {
+  text-align: center;
+}
+.error-icon {
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+.error-code {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.error-message {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.error-detail {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
 /* ---- Generic Page Content ---- */
 .page-content {
   padding: 60px 0 80px;
@@ -536,11 +655,18 @@ code { font-family: var(--font-mono); font-size: 0.9em; }
   .guide-card { padding: 20px 16px; }
 
   .section { padding: 48px 0; }
+
+  .variants-table { font-size: 0.85rem; }
+  .variants-table th,
+  .variants-table td { padding: 8px 10px; }
+
+  .error-page { padding: 48px 0; }
 }
 
 @media (max-width: 480px) {
   .container { padding: 0 16px; }
   .install-block-code code { font-size: 0.82rem; }
+  .code-block-body code { font-size: 0.82rem; }
   .step { gap: 14px; }
   .step-number { width: 34px; height: 34px; font-size: 0.95rem; }
 }

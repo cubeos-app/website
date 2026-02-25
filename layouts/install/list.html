@@ -8,91 +8,302 @@
 
     <!-- Tabs -->
     <div class="tabs" role="tablist">
-      <button class="tab active" role="tab" aria-selected="true" onclick="switchTab(event, 'tab-pi-imager')">Raspberry Pi Imager</button>
-      <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'tab-curl')">curl Installer</button>
-      <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'tab-x86')">x86_64 Server</button>
+      <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-rpi" onclick="switchTab(event, 'tab-rpi')">Raspberry Pi</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-linux" onclick="switchTab(event, 'tab-linux')">Any Linux</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-airgap" onclick="switchTab(event, 'tab-airgap')">Air-Gapped</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="tab-manage" onclick="switchTab(event, 'tab-manage')">Management</button>
     </div>
 
-    <!-- Tab: Pi Imager -->
-    <div id="tab-pi-imager" class="tab-panel active">
+    <!-- Tab: Raspberry Pi (Flash Image) -->
+    <div id="tab-rpi" class="tab-panel active" role="tabpanel">
       <div class="guide-card">
         <h2>Flash with Raspberry Pi Imager</h2>
-        <p class="guide-desc">The recommended method for Raspberry Pi 5, Pi 4, and compatible ARM64 SBCs. Produces a ready-to-boot SD card or USB drive.</p>
+        <p class="guide-desc">The recommended method for Raspberry Pi. Produces a ready-to-boot SD card with everything pre-configured.</p>
 
-        <h3>Requirements</h3>
+        <h3>Prerequisites</h3>
         <ul>
-          <li>Raspberry Pi 5 or Pi 4 (2 GB+ RAM)</li>
-          <li>microSD card (16 GB+) or USB drive</li>
-          <li>A computer with <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">Raspberry Pi Imager</a> installed</li>
+          <li>Raspberry Pi 4 or 5 (2 GB+ RAM)</li>
+          <li>microSD card (16 GB or larger)</li>
+          <li><a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">Raspberry Pi Imager</a> installed on your computer</li>
         </ul>
 
-        <h3>Steps</h3>
-        <ol>
-          <li>Open Raspberry Pi Imager on your computer.</li>
-          <li>Click <strong>Choose OS</strong> &rarr; scroll to <strong>Other general-purpose OS</strong> &rarr; select <strong>CubeOS</strong>.</li>
-          <li>Click <strong>Choose Storage</strong> and select your SD card or USB drive.</li>
-          <li>Click <strong>Next</strong>. When prompted to customize settings, configure WiFi and SSH if desired.</li>
-          <li>Click <strong>Write</strong> and wait for the flash to complete.</li>
-          <li>Insert the card into your Pi and power on. CubeOS boots in about 90 seconds.</li>
-          <li>Connect to the <code>CubeOS</code> WiFi network (password: <code>cubeos1234</code>).</li>
-          <li>Open <a href="http://cubeos.cube">http://cubeos.cube</a> in your browser to complete setup.</li>
-        </ol>
+        <h3>Step 1 &mdash; Download Pi Imager</h3>
+        <p>Get the latest Raspberry Pi Imager from <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">raspberrypi.com/software</a> and install it on your computer (Windows, macOS, or Linux).</p>
+
+        <h3>Step 2 &mdash; Add CubeOS custom repository</h3>
+        <p>Open Pi Imager, click <strong>Choose OS</strong> &rarr; scroll to the bottom &rarr; <strong>Use custom</strong>. Or add the CubeOS repository URL so CubeOS appears in the OS list:</p>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">Custom Repository URL</span>
+            <button class="copy-btn" onclick="copyCode(this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre class="code-block-body"><code>https://github.com/cubeos-app/releases/releases/download/v0.2.0-beta.01/rpi-imager.json</code></pre>
+        </div>
+
+        <h3>Step 3 &mdash; Select image and flash</h3>
+        <p>Select <strong>CubeOS Full</strong> or <strong>CubeOS Lite</strong> (see variants below), choose your SD card under <strong>Choose Storage</strong>, then click <strong>Write</strong>.</p>
+
+        <h3>Step 4 &mdash; Boot the Pi</h3>
+        <p>Insert the SD card into your Pi and power it on. First boot takes about 2 minutes while CubeOS configures services.</p>
+
+        <h3>Step 5 &mdash; Connect to WiFi</h3>
+        <p>Look for a WiFi network named <code>CubeOS-XXXX</code> (where XXXX is unique to your device). Connect to it with the password shown during setup.</p>
+
+        <h3>Step 6 &mdash; Open the dashboard</h3>
+        <p>Open <a href="http://cubeos.cube" target="_blank" rel="noopener">http://cubeos.cube</a> in your browser.</p>
+
+        <h3>Step 7 &mdash; Complete setup wizard</h3>
+        <p>The first-boot wizard guides you through setting an admin password, timezone, and network preferences.</p>
+
+        <h3>Image Variants</h3>
+        <div class="table-wrap">
+          <table class="variants-table">
+            <thead>
+              <tr>
+                <th>Variant</th>
+                <th>RAM</th>
+                <th>Includes</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CubeOS Full</strong></td>
+                <td>4 GB+</td>
+                <td>All services + AI/ML (Ollama, ChromaDB)</td>
+                <td>Raspberry Pi 5, power users</td>
+              </tr>
+              <tr>
+                <td><strong>CubeOS Lite</strong></td>
+                <td>2 GB+</td>
+                <td>Core services only</td>
+                <td>Raspberry Pi 4 (2 GB), minimal setups</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Direct Downloads</h3>
+        <p>Prefer to download the image directly? Grab the latest from <a href="https://github.com/cubeos-app/releases/releases" target="_blank" rel="noopener">GitHub Releases</a>.</p>
       </div>
     </div>
 
-    <!-- Tab: curl Installer -->
-    <div id="tab-curl" class="tab-panel">
+    <!-- Tab: Any Linux (curl installer) -->
+    <div id="tab-linux" class="tab-panel" role="tabpanel">
       <div class="guide-card">
         <h2>Install with curl</h2>
-        <p class="guide-desc">Install CubeOS on any existing Linux system. Supports ARM64 (Raspberry Pi, Banana Pi, Pine64) and x86_64. Non-destructive &mdash; runs alongside your existing OS via Docker.</p>
+        <p class="guide-desc">Install CubeOS on any existing Linux system. Non-destructive &mdash; runs alongside your existing OS via Docker Swarm.</p>
 
-        <h3>Requirements</h3>
+        <h3>Prerequisites</h3>
         <ul>
-          <li>Linux (Ubuntu, Debian, Raspbian, Armbian, RHEL, Fedora, Rocky, Alma)</li>
+          <li>Ubuntu 22.04+, Debian 12+, or RHEL 9+ / Fedora 38+</li>
           <li>2 GB+ RAM, 10 GB+ disk</li>
-          <li>Kernel 4.19 or newer</li>
-          <li>Root access (sudo)</li>
+          <li>Root or sudo access</li>
         </ul>
 
-        <h3>Install</h3>
+        <h3>Step 1 &mdash; Run the installer</h3>
         {{ partial "install-command.html" . }}
 
-        <h3>What it does</h3>
-        <ol>
-          <li>Installs Docker if not present</li>
-          <li>Initializes a single-node Docker Swarm</li>
-          <li>Deploys all CubeOS services (API, Dashboard, HAL, Pi-hole, Proxy Manager)</li>
-          <li>Configures a local WiFi access point (on supported hardware)</li>
-          <li>Creates a systemd service for automatic startup</li>
-        </ol>
+        <h3>Step 2 &mdash; Follow the prompts</h3>
+        <p>The installer walks you through IP selection, admin password, and optional DNS setup.</p>
 
-        <h3>Post-install</h3>
-        <p>Open <a href="http://cubeos.cube">http://cubeos.cube</a> (if connected to CubeOS WiFi) or <code>http://&lt;your-ip&gt;:6011</code> from your network.</p>
+        <h3>Step 3 &mdash; Access the dashboard</h3>
+        <p>Open <code>http://&lt;your-ip&gt;:6011</code> in your browser to reach the CubeOS dashboard.</p>
+
+        <h3>What happens during install</h3>
+        <ul>
+          <li>Installs Docker if not already present</li>
+          <li>Initializes a single-node Docker Swarm</li>
+          <li>Deploys all CubeOS services (API, Dashboard, HAL, Proxy Manager)</li>
+          <li>Sets up Pi-hole DNS (optional &mdash; handles systemd-resolved conflict)</li>
+          <li>Creates the <code>cubeos</code> CLI at <code>/usr/local/bin/cubeos</code></li>
+        </ul>
+
+        <h3>Port requirements</h3>
+        <p>The following ports must be available on the host:</p>
+        <div class="table-wrap">
+          <table class="variants-table">
+            <thead>
+              <tr>
+                <th>Port(s)</th>
+                <th>Service</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>53</code></td><td>Pi-hole DNS</td></tr>
+              <tr><td><code>67</code></td><td>DHCP (optional)</td></tr>
+              <tr><td><code>80, 443</code></td><td>Nginx Proxy Manager</td></tr>
+              <tr><td><code>5000</code></td><td>Local Docker Registry</td></tr>
+              <tr><td><code>6000-6039</code></td><td>CubeOS platform services</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>systemd-resolved conflict</h3>
+        <p>On Ubuntu and some Debian systems, <code>systemd-resolved</code> binds port 53. The installer detects this and offers to reconfigure the resolver so Pi-hole can operate. You can also skip Pi-hole DNS entirely.</p>
+
+        <h3>Raspberry Pi OS</h3>
+        <p>The curl installer works on Raspberry Pi OS too (Tier 2 container mode). For the full dedicated-OS experience, use the <strong>Raspberry Pi</strong> tab instead.</p>
       </div>
     </div>
 
-    <!-- Tab: x86_64 -->
-    <div id="tab-x86" class="tab-panel">
+    <!-- Tab: Air-Gapped / Offline Install -->
+    <div id="tab-airgap" class="tab-panel" role="tabpanel">
       <div class="guide-card">
-        <h2>Install on x86_64 Server</h2>
-        <p class="guide-desc">Run CubeOS on any Intel/AMD machine &mdash; a mini PC, NUC, old laptop, or cloud VM. Same curl installer, same experience.</p>
+        <h2>Air-Gapped / Offline Install</h2>
+        <p class="guide-desc">Install CubeOS on a machine with no internet access. Download everything on a connected machine first, then transfer.</p>
 
-        <h3>Requirements</h3>
-        <ul>
-          <li>x86_64 Linux (Ubuntu 22.04+, Debian 12+, Fedora 38+, RHEL 9+)</li>
-          <li>2 GB+ RAM, 10 GB+ disk</li>
-          <li>Root access (sudo)</li>
-        </ul>
+        <h3>Step 1 &mdash; Download the tarball</h3>
+        <p>On an internet-connected machine, download the air-gap bundle:</p>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">Download</span>
+            <button class="copy-btn" onclick="copyCode(this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre class="code-block-body"><code>curl -fsSL https://releases.cubeos.app/releases/0.2.0-beta.01/cubeos-airgap.tar.gz -o cubeos-airgap.tar.gz</code></pre>
+        </div>
 
-        <h3>Install</h3>
-        {{ partial "install-command.html" . }}
+        <h3>Step 2 &mdash; Transfer to target machine</h3>
+        <p>Copy the tarball to the target machine using a USB drive, SCP, or any other method:</p>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">SCP example</span>
+            <button class="copy-btn" onclick="copyCode(this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre class="code-block-body"><code>scp cubeos-airgap.tar.gz user@target:/tmp/</code></pre>
+        </div>
 
-        <h3>Notes</h3>
-        <ul>
-          <li>WiFi access point creation is skipped on x86_64 (no hostapd). Access the dashboard via your LAN IP.</li>
-          <li>All other features work identically: Docker Swarm, app store, web dashboard, DNS.</li>
-          <li>Ideal for headless home servers, NAS builds, or development/testing.</li>
-        </ul>
+        <h3>Step 3 &mdash; Extract and install</h3>
+        <p>On the target machine, extract the tarball and run the installer with the air-gap flags:</p>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">Install (with internet for script)</span>
+            <button class="copy-btn" onclick="copyCode(this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre class="code-block-body"><code>tar xzf /tmp/cubeos-airgap.tar.gz -C /tmp/cubeos-airgap
+CUBEOS_SKIP_DOWNLOAD=true CUBEOS_AIRGAP_DIR=/tmp/cubeos-airgap/ \
+  curl -fsSL https://get.cubeos.app | sudo bash</code></pre>
+        </div>
+
+        <p>If the target has <strong>no internet at all</strong>, extract <code>install.sh</code> from the tarball and run it directly:</p>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">Fully offline install</span>
+            <button class="copy-btn" onclick="copyCode(this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre class="code-block-body"><code>tar xzf /tmp/cubeos-airgap.tar.gz -C /tmp/cubeos-airgap
+CUBEOS_SKIP_DOWNLOAD=true CUBEOS_AIRGAP_DIR=/tmp/cubeos-airgap/ \
+  sudo bash /tmp/cubeos-airgap/install.sh</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Management (post-install) -->
+    <div id="tab-manage" class="tab-panel" role="tabpanel">
+      <div class="guide-card">
+        <h2>Management Commands</h2>
+        <p class="guide-desc">After installing CubeOS, use the <code>cubeos</code> CLI to manage your instance.</p>
+
+        <div class="command-list">
+          <div class="command-item">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-label">Check service health</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+              <pre class="code-block-body"><code>cubeos status</code></pre>
+            </div>
+            <p class="command-desc">Shows the status of all CubeOS services, Docker Swarm health, and resource usage.</p>
+          </div>
+
+          <div class="command-item">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-label">Update CubeOS</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+              <pre class="code-block-body"><code>cubeos update</code></pre>
+            </div>
+            <p class="command-desc">Pulls the latest container images and restarts services with zero downtime.</p>
+          </div>
+
+          <div class="command-item">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-label">Backup data</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+              <pre class="code-block-body"><code>cubeos backup</code></pre>
+            </div>
+            <p class="command-desc">Exports configuration, database, and app data to a compressed archive.</p>
+          </div>
+
+          <div class="command-item">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-label">Restore from backup</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+              <pre class="code-block-body"><code>cubeos restore</code></pre>
+            </div>
+            <p class="command-desc">Restores CubeOS from a previously created backup archive.</p>
+          </div>
+
+          <div class="command-item">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-label">View logs</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+              <pre class="code-block-body"><code>cubeos logs</code></pre>
+            </div>
+            <p class="command-desc">Streams logs from all CubeOS services for debugging and monitoring.</p>
+          </div>
+
+          <div class="command-item">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-label">Uninstall CubeOS</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+              <pre class="code-block-body"><code>cubeos uninstall</code></pre>
+            </div>
+            <p class="command-desc">Cleanly removes all CubeOS services, containers, and configuration. Optionally preserves data.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -111,6 +322,15 @@ function switchTab(e, tabId) {
   e.currentTarget.classList.add('active');
   e.currentTarget.setAttribute('aria-selected', 'true');
   document.getElementById(tabId).classList.add('active');
+}
+
+function copyCode(btn) {
+  var code = btn.closest('.code-block').querySelector('code').textContent;
+  navigator.clipboard.writeText(code).then(function() {
+    var text = btn.querySelector('.copy-text');
+    text.textContent = 'Copied';
+    setTimeout(function() { text.textContent = 'Copy'; }, 2000);
+  });
 }
 </script>
 {{ end }}
