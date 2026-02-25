@@ -8,8 +8,6 @@ params:
   github: "https://github.com/cubeos-app"
   demo_url: "https://demo.cubeos.app"
   docs_url: "https://get.cubeos.app/install/"
-  umami_website_id: ""
-  umami_url: ""
 
 menu:
   main:
