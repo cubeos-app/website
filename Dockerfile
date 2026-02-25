@@ -4,5 +4,5 @@ FROM ${BASE_IMAGE}
 # Copy Hugo output
 COPY public/ /usr/share/nginx/html/
 
-# Copy content-negotiation nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Override nginx config (base image doesn't include conf.d/)
+COPY nginx.conf /etc/nginx/nginx.conf
