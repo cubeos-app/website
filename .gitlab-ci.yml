@@ -7,7 +7,7 @@ stages:
   - deploy
 
 variables:
-  HUGO_IMAGE: "registry-gitlab.nuclearlighters.net/infrastructure/nllei01/production/hugo-runner:1.5"
+  HUGO_IMAGE: "registry-gitlab.nuclearlighters.net/infrastructure/nllei01/production/hugo-runner:1.4"
   BASE_IMAGE: "registry-gitlab.nuclearlighters.net/infrastructure/nllei01/production/cubeos-nginx-base:latest"
   GHCR_IMAGE: "ghcr.io/cubeos-app/website"
   AWX_HOST: "https://awx.nuclearlighters.net"
@@ -16,7 +16,7 @@ build:
   stage: build
   image: $HUGO_IMAGE
   tags:
-    - docker
+    - multiarch
   script:
     - hugo version
     - hugo --minify --gc --ignoreCache --environment production
@@ -31,7 +31,7 @@ docker:
   stage: docker
   image: $HUGO_IMAGE
   tags:
-    - docker
+    - multiarch
   variables:
     DOCKER_API_VERSION: "1.41"
   before_script:
@@ -51,7 +51,7 @@ deploy:
   stage: deploy
   image: $HUGO_IMAGE
   tags:
-    - docker
+    - multiarch
   script:
     - |
       echo "Triggering AWX deployment..."
