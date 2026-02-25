@@ -14,7 +14,9 @@ variables:
 
 build:
   stage: build
-  image: $HUGO_IMAGE
+  image:
+    name: $HUGO_IMAGE
+    pull_policy: if-not-present
   tags:
     - docker
   script:
@@ -29,7 +31,9 @@ build:
 
 docker:
   stage: docker
-  image: $HUGO_IMAGE
+  image:
+    name: $HUGO_IMAGE
+    pull_policy: if-not-present
   tags:
     - docker
   variables:
@@ -49,7 +53,9 @@ docker:
 
 deploy:
   stage: deploy
-  image: $HUGO_IMAGE
+  image:
+    name: $HUGO_IMAGE
+    pull_policy: if-not-present
   tags:
     - docker
   script:
