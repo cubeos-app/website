@@ -1,0 +1,19 @@
+<div class="install-block">
+  <div class="install-block-header">
+    <span class="install-block-label">Install with one command</span>
+    <button class="copy-btn" onclick="copyInstallCommand(this)" aria-label="Copy to clipboard">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span class="copy-text">Copy</span>
+    </button>
+  </div>
+  <pre class="install-block-code"><code>curl -fsSL https://get.cubeos.app | sudo bash</code></pre>
+</div>
+<script>
+function copyInstallCommand(btn) {
+  navigator.clipboard.writeText('curl -fsSL https://get.cubeos.app | sudo bash').then(function() {
+    var text = btn.querySelector('.copy-text');
+    text.textContent = 'Copied';
+    setTimeout(function() { text.textContent = 'Copy'; }, 2000);
+  });
+}
+</script>

@@ -1,0 +1,89 @@
+# =============================================================================
+# CubeOS Website Pipeline — Hugo → GHCR → AWX Deploy
+# =============================================================================
+stages:
+  - build
+  - docker
+  - deploy
+
+variables:
+  HUGO_IMAGE: "registry-gitlab.nuclearlighters.net/infrastructure/nllei01/production/hugo-runner:1.5"
+  BASE_IMAGE: "registry-gitlab.nuclearlighters.net/infrastructure/nllei01/production/cubeos-nginx-base:latest"
+  GHCR_IMAGE: "ghcr.io/cubeos-app/website"
+  AWX_HOST: "https://awx.nuclearlighters.net"
+
+build:
+  stage: build
+  image: $HUGO_IMAGE
+  tags:
+    - docker
+  script:
+    - hugo version
+    - hugo --minify --gc --ignoreCache --environment production
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 hour
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+docker:
+  stage: docker
+  image: $HUGO_IMAGE
+  tags:
+    - docker
+  variables:
+    DOCKER_API_VERSION: "1.41"
+  before_script:
+    - echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
+    - docker login registry-gitlab.nuclearlighters.net -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+  script:
+    - docker build --no-cache --build-arg BASE_IMAGE=${BASE_IMAGE} -t ${GHCR_IMAGE}:${CI_COMMIT_SHORT_SHA} -t ${GHCR_IMAGE}:latest .
+    - docker push ${GHCR_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker push ${GHCR_IMAGE}:latest
+  needs:
+    - job: build
+      artifacts: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+deploy:
+  stage: deploy
+  image: $HUGO_IMAGE
+  tags:
+    - docker
+  script:
+    - |
+      echo "Triggering AWX deployment..."
+      RESPONSE=$(curl -s -X POST \
+        -H "Authorization: Bearer ${AWX_TOKEN}" \
+        -H "Content-Type: application/json" \
+        -d '{"extra_vars": {"service_name": "cubeos-website", "compose_dir": "/srv/cubeos-website"}}' \
+        "${AWX_HOST}/api/v2/job_templates/${AWX_JOB_TEMPLATE_ID}/launch/")
+      echo "AWX response: $RESPONSE"
+      JOB_ID=$(echo "$RESPONSE" | jq -r '.id // empty')
+      if [ -z "$JOB_ID" ]; then
+        echo "ERROR: Failed to launch AWX job"
+        echo "$RESPONSE" | jq .
+        exit 1
+      fi
+      echo "AWX job launched: $JOB_ID"
+      # Poll for completion (max 5 minutes)
+      for i in $(seq 1 30); do
+        sleep 10
+        STATUS=$(curl -s \
+          -H "Authorization: Bearer ${AWX_TOKEN}" \
+          "${AWX_HOST}/api/v2/jobs/${JOB_ID}/" | jq -r '.status')
+        echo "Job $JOB_ID status: $STATUS"
+        case "$STATUS" in
+          successful) echo "Deployment successful"; exit 0 ;;
+          failed|error|canceled) echo "Deployment $STATUS"; exit 1 ;;
+        esac
+      done
+      echo "ERROR: Deployment timed out after 5 minutes"
+      exit 1
+  needs:
+    - job: docker
+      artifacts: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'

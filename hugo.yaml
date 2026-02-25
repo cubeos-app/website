@@ -1,0 +1,34 @@
+baseURL: "https://get.cubeos.app/"
+languageCode: "en-us"
+title: "CubeOS — Server OS for Raspberry Pi"
+
+params:
+  description: "Open-source server OS with Docker orchestration, web dashboard, and offline-first design"
+  author: "Nuclear Lighters Inc."
+  github: "https://github.com/cubeos-app"
+  demo_url: "https://demo.cubeos.app"
+  docs_url: "https://get.cubeos.app/install/"
+  umami_website_id: ""
+  umami_url: ""
+
+menu:
+  main:
+    - name: "Install"
+      url: "/install/"
+      weight: 1
+    - name: "Demo"
+      url: "https://demo.cubeos.app"
+      weight: 2
+      params:
+        external: true
+        highlight: true
+    - name: "GitHub"
+      url: "https://github.com/cubeos-app"
+      weight: 3
+      params:
+        external: true
+
+enableRobotsTXT: true
+
+minify:
+  minifyOutput: true

@@ -1,0 +1,47 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="header-logo" aria-label="CubeOS Home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="160" height="60">
+        <g transform="translate(10, 10)">
+          <!-- Cube grid -->
+          <g transform="translate(10, 15)">
+            <!-- Bottom row -->
+            <polygon points="25,55 0,40 25,25 50,40" fill="#475569"/>
+            <polygon points="25,55 50,40 50,55 25,70" fill="#334155"/>
+            <polygon points="25,55 0,40 0,55 25,70" fill="#1e293b"/>
+
+            <polygon points="50,40 25,25 50,10 75,25" fill="#475569"/>
+            <polygon points="50,40 75,25 75,40 50,55" fill="#334155"/>
+            <polygon points="50,40 25,25 25,40 50,55" fill="#1e293b"/>
+
+            <!-- Floating teal cube -->
+            <g transform="translate(50, -8)">
+              <polygon points="25,40 0,25 25,10 50,25" fill="#2dd4bf"/>
+              <polygon points="25,40 50,25 50,40 25,55" fill="#14b8a6"/>
+              <polygon points="25,40 0,25 0,40 25,55" fill="#0d9488"/>
+            </g>
+          </g>
+          <!-- Wordmark -->
+          <text x="105" y="62" font-family="'Space Grotesk', system-ui, sans-serif" font-size="42" font-weight="600">
+            <tspan fill="#f1f5f9">Cube</tspan><tspan fill="#2dd4bf">OS</tspan>
+          </text>
+        </g>
+      </svg>
+    </a>
+    <nav class="header-nav">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}"
+        class="nav-link{{ if .Params.highlight }} nav-link-highlight{{ end }}"
+        {{ if .Params.external }}target="_blank" rel="noopener"{{ end }}>
+        {{ .Name }}
+        {{ if .Params.external }}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        {{ end }}
+      </a>
+      {{ end }}
+    </nav>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.header-nav').classList.toggle('open')" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,116 @@
+{{ define "title" }}Install CubeOS — {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <h1 class="page-title">Install CubeOS</h1>
+    <p class="page-subtitle">Choose the method that fits your hardware and use case.</p>
+
+    <!-- Tabs -->
+    <div class="tabs" role="tablist">
+      <button class="tab active" role="tab" aria-selected="true" onclick="switchTab(event, 'tab-pi-imager')">Raspberry Pi Imager</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'tab-curl')">curl Installer</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'tab-x86')">x86_64 Server</button>
+    </div>
+
+    <!-- Tab: Pi Imager -->
+    <div id="tab-pi-imager" class="tab-panel active">
+      <div class="guide-card">
+        <h2>Flash with Raspberry Pi Imager</h2>
+        <p class="guide-desc">The recommended method for Raspberry Pi 5, Pi 4, and compatible ARM64 SBCs. Produces a ready-to-boot SD card or USB drive.</p>
+
+        <h3>Requirements</h3>
+        <ul>
+          <li>Raspberry Pi 5 or Pi 4 (2 GB+ RAM)</li>
+          <li>microSD card (16 GB+) or USB drive</li>
+          <li>A computer with <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">Raspberry Pi Imager</a> installed</li>
+        </ul>
+
+        <h3>Steps</h3>
+        <ol>
+          <li>Open Raspberry Pi Imager on your computer.</li>
+          <li>Click <strong>Choose OS</strong> &rarr; scroll to <strong>Other general-purpose OS</strong> &rarr; select <strong>CubeOS</strong>.</li>
+          <li>Click <strong>Choose Storage</strong> and select your SD card or USB drive.</li>
+          <li>Click <strong>Next</strong>. When prompted to customize settings, configure WiFi and SSH if desired.</li>
+          <li>Click <strong>Write</strong> and wait for the flash to complete.</li>
+          <li>Insert the card into your Pi and power on. CubeOS boots in about 90 seconds.</li>
+          <li>Connect to the <code>CubeOS</code> WiFi network (password: <code>cubeos1234</code>).</li>
+          <li>Open <a href="http://cubeos.cube">http://cubeos.cube</a> in your browser to complete setup.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Tab: curl Installer -->
+    <div id="tab-curl" class="tab-panel">
+      <div class="guide-card">
+        <h2>Install with curl</h2>
+        <p class="guide-desc">Install CubeOS on any existing Linux system. Supports ARM64 (Raspberry Pi, Banana Pi, Pine64) and x86_64. Non-destructive &mdash; runs alongside your existing OS via Docker.</p>
+
+        <h3>Requirements</h3>
+        <ul>
+          <li>Linux (Ubuntu, Debian, Raspbian, Armbian, RHEL, Fedora, Rocky, Alma)</li>
+          <li>2 GB+ RAM, 10 GB+ disk</li>
+          <li>Kernel 4.19 or newer</li>
+          <li>Root access (sudo)</li>
+        </ul>
+
+        <h3>Install</h3>
+        {{ partial "install-command.html" . }}
+
+        <h3>What it does</h3>
+        <ol>
+          <li>Installs Docker if not present</li>
+          <li>Initializes a single-node Docker Swarm</li>
+          <li>Deploys all CubeOS services (API, Dashboard, HAL, Pi-hole, Proxy Manager)</li>
+          <li>Configures a local WiFi access point (on supported hardware)</li>
+          <li>Creates a systemd service for automatic startup</li>
+        </ol>
+
+        <h3>Post-install</h3>
+        <p>Open <a href="http://cubeos.cube">http://cubeos.cube</a> (if connected to CubeOS WiFi) or <code>http://&lt;your-ip&gt;:6011</code> from your network.</p>
+      </div>
+    </div>
+
+    <!-- Tab: x86_64 -->
+    <div id="tab-x86" class="tab-panel">
+      <div class="guide-card">
+        <h2>Install on x86_64 Server</h2>
+        <p class="guide-desc">Run CubeOS on any Intel/AMD machine &mdash; a mini PC, NUC, old laptop, or cloud VM. Same curl installer, same experience.</p>
+
+        <h3>Requirements</h3>
+        <ul>
+          <li>x86_64 Linux (Ubuntu 22.04+, Debian 12+, Fedora 38+, RHEL 9+)</li>
+          <li>2 GB+ RAM, 10 GB+ disk</li>
+          <li>Root access (sudo)</li>
+        </ul>
+
+        <h3>Install</h3>
+        {{ partial "install-command.html" . }}
+
+        <h3>Notes</h3>
+        <ul>
+          <li>WiFi access point creation is skipped on x86_64 (no hostapd). Access the dashboard via your LAN IP.</li>
+          <li>All other features work identically: Docker Swarm, app store, web dashboard, DNS.</li>
+          <li>Ideal for headless home servers, NAS builds, or development/testing.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function switchTab(e, tabId) {
+  document.querySelectorAll('.tab').forEach(function(t) {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  e.currentTarget.classList.add('active');
+  e.currentTarget.setAttribute('aria-selected', 'true');
+  document.getElementById(tabId).classList.add('active');
+}
+</script>
+{{ end }}
