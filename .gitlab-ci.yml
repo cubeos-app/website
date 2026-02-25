@@ -54,6 +54,9 @@ deploy:
     - docker
   script:
     - |
+      echo "AWX_TOKEN length: ${#AWX_TOKEN}"
+      echo "AWX_HOST: ${AWX_HOST}"
+      echo "AWX_JOB_TEMPLATE_ID: ${AWX_JOB_TEMPLATE_ID}"
       echo "Triggering AWX deployment..."
       RESPONSE=$(curl -s -X POST \
         -H "Authorization: Bearer ${AWX_TOKEN}" \
