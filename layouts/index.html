@@ -1,16 +1,26 @@
 {{ define "main" }}
 
 <!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <h1 class="hero-title">Your Hardware, Your Server, Your Rules</h1>
-    <p class="hero-subtitle">Open-source self-hosting OS for any hardware &mdash; Raspberry Pi, x86_64, ARM64 SBCs, or any Linux machine. Docker orchestration, web dashboard, and offline-first design.</p>
-    {{ partial "install-command.html" . }}
-    <div class="hero-cta-secondary">
-      <a href="/install/" class="btn btn-secondary">
-        Raspberry Pi? Flash with Pi Imager
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+<section class="hero hero-bg">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="container">
+      <h1 class="hero-title">Your Hardware, Your Server, Your Rules</h1>
+      <p class="hero-subtitle">Open-source self-hosting OS for any hardware &mdash; Raspberry Pi, x86_64, ARM64 SBCs, or any Linux machine. Docker orchestration, web dashboard, and offline-first design.</p>
+      {{ partial "install-command.html" . }}
+      <div class="hero-preview-link">
+        <a href="{{ .Site.Params.demo_url }}" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Preview live dashboard
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="hero-cta-secondary">
+        <a href="/install/" class="btn btn-secondary">
+          Raspberry Pi? Flash with Pi Imager
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
