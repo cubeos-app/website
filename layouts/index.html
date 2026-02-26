@@ -3,12 +3,12 @@
 <!-- Hero -->
 <section class="hero">
   <div class="container">
-    <h1 class="hero-title">Your Pi, Your Server, Your Rules</h1>
-    <p class="hero-subtitle">Open-source server OS for Raspberry Pi &mdash; Docker orchestration, web dashboard, offline-first</p>
+    <h1 class="hero-title">Your Hardware, Your Server, Your Rules</h1>
+    <p class="hero-subtitle">Open-source self-hosting OS for any hardware &mdash; Raspberry Pi, x86_64, ARM64 SBCs, or any Linux machine. Docker orchestration, web dashboard, and offline-first design.</p>
     {{ partial "install-command.html" . }}
     <div class="hero-cta-secondary">
       <a href="/install/" class="btn btn-secondary">
-        Or flash with Raspberry Pi Imager
+        Raspberry Pi? Flash with Pi Imager
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
@@ -19,6 +19,7 @@
 <section class="section" id="platforms">
   <div class="container">
     <h2 class="section-title">Platform Support</h2>
+    {{ partial "beta-warning.html" . }}
     <div class="table-wrap">
       <table class="platform-table">
         <thead>
@@ -30,28 +31,35 @@
         </thead>
         <tbody>
           <tr>
+            <td>x86_64 (Intel/AMD PC, server, VM)</td>
+            <td>curl installer</td>
+            <td><span class="badge badge-beta">Beta (untested)</span></td>
+          </tr>
+          <tr>
             <td>Raspberry Pi 5 / 4</td>
             <td>Flash image (Pi Imager)</td>
-            <td><span class="badge badge-stable">Stable</span></td>
+            <td><span class="badge badge-beta">Beta (untested)</span></td>
           </tr>
           <tr>
             <td>Raspberry Pi 5 / 4</td>
             <td>curl installer</td>
-            <td><span class="badge badge-stable">Stable</span></td>
+            <td><span class="badge badge-beta">Beta (untested)</span></td>
           </tr>
           <tr>
-            <td>x86_64 (Intel/AMD)</td>
-            <td>curl installer</td>
-            <td><span class="badge badge-stable">Stable</span></td>
-          </tr>
-          <tr>
-            <td>Banana Pi / Pine64</td>
+            <td>ARM64 SBC (Banana Pi, Pine64, etc.)</td>
             <td>Flash image</td>
-            <td><span class="badge badge-beta">Beta</span></td>
+            <td><span class="badge badge-experimental">Experimental (untested)</span></td>
+          </tr>
+          <tr>
+            <td>Any Linux (Ubuntu 22.04+, Debian 12+, RHEL 9+)</td>
+            <td>curl installer</td>
+            <td><span class="badge badge-beta">Beta (untested)</span></td>
           </tr>
         </tbody>
       </table>
     </div>
+    <p class="platform-note">CubeOS uses Docker Swarm under the hood &mdash; if it runs Docker, it can run CubeOS.</p>
+    <p class="platform-footnote">All releases are pre-production and have not been formally tested. See our <a href="https://github.com/cubeos-app/releases/releases" target="_blank" rel="noopener">release notes</a> for known issues.</p>
   </div>
 </section>
 
@@ -86,7 +94,7 @@
           </svg>
         </div>
         <h3>Offline-First</h3>
-        <p>Works without internet access. Air-gapped deployments, local DNS, built-in WiFi access point.</p>
+        <p>Works without internet &mdash; perfect for air-gapped deployments, field use, home labs, and anywhere reliable connectivity isn't guaranteed.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
@@ -125,29 +133,29 @@
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <h3>Flash or install CubeOS</h3>
-          <p>Use Raspberry Pi Imager for a fresh install, or run the curl installer on an existing Linux system.</p>
+          <h3>Install CubeOS</h3>
+          <p>Flash an image with Raspberry Pi Imager, or run the curl installer on any Linux machine.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <h3>Connect to CubeOS WiFi (or your network)</h3>
-          <p>CubeOS creates its own WiFi access point. Connect from any device, or plug in Ethernet.</p>
+          <h3>Open the dashboard</h3>
+          <p>After a Pi flash, open <code>http://cubeos.cube</code>. After a curl install, open <code>http://&lt;your-ip&gt;:6011</code>.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <h3>Open http://cubeos.cube</h3>
-          <p>The built-in DNS resolves cubeos.cube to the dashboard. Complete the setup wizard.</p>
+          <h3>Complete the setup wizard</h3>
+          <p>Set an admin password, timezone, and network preferences. Takes less than a minute.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
           <h3>Install your first app</h3>
-          <p>Browse the app store, pick an app, and deploy it with one click. That's it.</p>
+          <p>Browse the App Store, pick an app, and deploy it with one click. That's it.</p>
         </div>
       </div>
     </div>

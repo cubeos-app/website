@@ -19,6 +19,7 @@
       <div class="guide-card">
         <h2>Flash with Raspberry Pi Imager</h2>
         <p class="guide-desc">The recommended method for Raspberry Pi. Produces a ready-to-boot SD card with everything pre-configured.</p>
+        {{ partial "beta-warning.html" . }}
 
         <h3>Prerequisites</h3>
         <ul>
@@ -96,6 +97,7 @@
       <div class="guide-card">
         <h2>Install with curl</h2>
         <p class="guide-desc">Install CubeOS on any existing Linux system. Non-destructive &mdash; runs alongside your existing OS via Docker Swarm.</p>
+        {{ partial "beta-warning.html" . }}
 
         <h3>Prerequisites</h3>
         <ul>
@@ -155,6 +157,7 @@
       <div class="guide-card">
         <h2>Air-Gapped / Offline Install</h2>
         <p class="guide-desc">Install CubeOS on a machine with no internet access. Download everything on a connected machine first, then transfer.</p>
+        {{ partial "beta-warning.html" . }}
 
         <h3>Step 1 &mdash; Download the tarball</h3>
         <p>On an internet-connected machine, download the air-gap bundle:</p>

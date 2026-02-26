@@ -1,3 +1,4 @@
 params:
   umami_website_id: "1f6e3823-418c-420d-9c7a-9ded87130215"
   umami_url: "https://analytics.cubeos.app"
+  og_description: "Self-hosting OS for any hardware. Docker orchestration, web dashboard, offline-first. Runs on Raspberry Pi, x86_64, ARM64 SBCs, and any Linux machine."

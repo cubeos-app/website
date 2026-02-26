@@ -1,9 +1,9 @@
 baseURL: "https://get.cubeos.app/"
 languageCode: "en-us"
-title: "CubeOS — Server OS for Raspberry Pi"
+title: "CubeOS — Self-Hosting OS for Any Hardware"
 
 params:
-  description: "Open-source server OS with Docker orchestration, web dashboard, and offline-first design"
+  description: "Open-source self-hosting OS — Docker orchestration, web dashboard, and offline-first design. Runs on Raspberry Pi, x86_64, ARM64 SBCs, and any Linux machine."
   author: "Nuclear Lighters Inc."
   github: "https://github.com/cubeos-app"
   demo_url: "https://demo.cubeos.app"

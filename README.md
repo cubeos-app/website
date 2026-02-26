@@ -2,6 +2,8 @@
 
 Public website for [get.cubeos.app](https://get.cubeos.app).
 
+CubeOS is an open-source self-hosting OS that runs on any hardware — Raspberry Pi, x86_64, ARM64 SBCs, and any Linux machine.
+
 Built with Hugo, served via Chainguard Nginx with content negotiation:
 - `curl https://get.cubeos.app` returns `install.sh`
 - Browsers get the landing page

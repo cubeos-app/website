@@ -1,3 +1,3 @@
 ---
-title: "CubeOS — Server OS for Raspberry Pi"
+title: "CubeOS — Self-Hosting OS for Any Hardware"
 ---
