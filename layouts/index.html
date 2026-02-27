@@ -73,8 +73,85 @@
   </div>
 </section>
 
+<!-- Downloads -->
+<section class="section section-alt" id="downloads">
+  <div class="container">
+    <h2 class="section-title">Download Raspberry Pi Image</h2>
+    <p class="section-subtitle">Flash with Raspberry Pi Imager or <code>dd</code>. For x86/ARM64 Linux, use the curl installer above.</p>
+    <div class="download-grid" id="download-cards">
+      <div class="download-card download-card-primary">
+        <div class="download-card-header">
+          <h3>Full</h3>
+          <span class="badge badge-beta" id="dl-version">loading...</span>
+        </div>
+        <p class="download-card-desc">All services included — App Store, VPN, file manager, AI tools. Recommended for most users.</p>
+        <div class="download-card-meta">
+          <span class="download-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M16 2v20M8 2v20M2 12h20M2 7h20M2 17h20"/></svg>
+            ARM64 (Pi 4/5)
+          </span>
+          <span class="download-meta-item" id="dl-full-size">~2.3 GB</span>
+        </div>
+        <a href="#" id="dl-full-btn" class="btn btn-primary download-btn" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Full Image
+        </a>
+        <div class="download-card-footer">
+          <a href="#" id="dl-full-checksum" class="download-checksum-link">SHA256 checksum</a>
+        </div>
+      </div>
+      <div class="download-card">
+        <div class="download-card-header">
+          <h3>Lite</h3>
+          <span class="badge badge-beta" id="dl-version-lite">loading...</span>
+        </div>
+        <p class="download-card-desc">Core platform only — dashboard, Docker orchestration, networking. Smaller image, fewer pre-installed services.</p>
+        <div class="download-card-meta">
+          <span class="download-meta-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M16 2v20M8 2v20M2 12h20M2 7h20M2 17h20"/></svg>
+            ARM64 (Pi 4/5)
+          </span>
+          <span class="download-meta-item" id="dl-lite-size">~1.8 GB</span>
+        </div>
+        <a href="#" id="dl-lite-btn" class="btn btn-secondary download-btn" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Lite Image
+        </a>
+        <div class="download-card-footer">
+          <a href="#" id="dl-lite-checksum" class="download-checksum-link">SHA256 checksum</a>
+        </div>
+      </div>
+    </div>
+    <p class="download-release-note" id="dl-date"></p>
+    <p class="download-release-note"><a href="https://github.com/cubeos-app/cubeos/releases" target="_blank" rel="noopener">View all releases on GitHub</a></p>
+  </div>
+</section>
+<script>
+(function() {
+  fetch('/latest-release.json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var v = 'v' + d.version;
+      document.getElementById('dl-version').textContent = v;
+      document.getElementById('dl-version-lite').textContent = v;
+      document.getElementById('dl-full-btn').href = d.full_url;
+      document.getElementById('dl-lite-btn').href = d.lite_url;
+      document.getElementById('dl-full-checksum').href = d.full_url + '.sha256';
+      document.getElementById('dl-lite-checksum').href = d.lite_url + '.sha256';
+      if (d.released_at) {
+        var date = new Date(d.released_at);
+        document.getElementById('dl-date').textContent = 'Released ' + date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+    })
+    .catch(function() {
+      document.getElementById('dl-version').textContent = 'unavailable';
+      document.getElementById('dl-version-lite').textContent = 'unavailable';
+    });
+})();
+</script>
+
 <!-- Features -->
-<section class="section section-alt" id="features">
+<section class="section" id="features">
   <div class="container">
     <h2 class="section-title">Built for Self-Hosting</h2>
     <div class="feature-grid">
@@ -136,7 +213,7 @@
 </section>
 
 <!-- Quick Start -->
-<section class="section" id="quickstart">
+<section class="section section-alt" id="quickstart">
   <div class="container">
     <h2 class="section-title">Get Started in Minutes</h2>
     <div class="steps">
