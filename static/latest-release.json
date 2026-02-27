@@ -1,8 +1,8 @@
 {
-  "version": "0.2.0-beta.02",
-  "full_url": "https://releases.cubeos.app/0.2.0-beta.02/cubeos-0.2.0-beta.02-arm64.img.xz",
-  "lite_url": "https://releases.cubeos.app/0.2.0-beta.02/cubeos-0.2.0-beta.02-lite-arm64.img.xz",
-  "full_filename": "cubeos-0.2.0-beta.02-arm64.img.xz",
-  "lite_filename": "cubeos-0.2.0-beta.02-lite-arm64.img.xz",
-  "released_at": "2026-02-27T01:15:00Z"
+  "version": "0.2.0-beta.03",
+  "full_url": "https://releases.cubeos.app/0.2.0-beta.03/cubeos-0.2.0-beta.03-arm64.img.xz",
+  "lite_url": "https://releases.cubeos.app/0.2.0-beta.03/cubeos-0.2.0-beta.03-lite-arm64.img.xz",
+  "full_filename": "cubeos-0.2.0-beta.03-arm64.img.xz",
+  "lite_filename": "cubeos-0.2.0-beta.03-lite-arm64.img.xz",
+  "released_at": "2026-02-27T13:41:05Z"
 }
