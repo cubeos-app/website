@@ -1,0 +1,10 @@
+{{ define "title" }}Changelog — {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <h1 class="page-title">Changelog</h1>
+    <p class="page-subtitle">Release notes for all CubeOS versions.</p>
+    <div class="changelog-content">{{ .Content }}</div>
+  </div>
+</section>
+{{ end }}

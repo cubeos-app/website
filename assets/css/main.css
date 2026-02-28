@@ -888,3 +888,64 @@ code { font-family: var(--font-mono); font-size: 0.9em; }
   .step { gap: 14px; }
   .step-number { width: 34px; height: 34px; font-size: 0.95rem; }
 }
+
+/* ---- Changelog Page ---- */
+.changelog-content h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 48px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.changelog-content h2:first-child {
+  margin-top: 0;
+}
+.changelog-content h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin: 20px 0 10px;
+}
+.changelog-content ul {
+  list-style: none;
+  padding: 0;
+}
+.changelog-content li {
+  position: relative;
+  padding: 4px 0 4px 16px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.changelog-content li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+.changelog-content li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.changelog-content li a {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.changelog-content li a:hover {
+  color: var(--accent);
+}
+.changelog-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+.changelog-content p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+.changelog-content em {
+  color: var(--text-muted);
+}
