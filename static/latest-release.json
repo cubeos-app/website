@@ -1,8 +1,8 @@
 {
   "version": "0.2.0-beta.04",
-  "full_url": "",
-  "lite_url": "",
-  "full_filename": "",
-  "lite_filename": "",
-  "released_at": "2026-02-28T05:18:14Z"
+  "full_url": "https://releases.cubeos.app/0.2.0-beta.04/cubeos-0.2.0-beta.04-arm64.img.xz",
+  "lite_url": "https://releases.cubeos.app/0.2.0-beta.04/cubeos-0.2.0-beta.04-lite-arm64.img.xz",
+  "full_filename": "cubeos-0.2.0-beta.04-arm64.img.xz",
+  "lite_filename": "cubeos-0.2.0-beta.04-lite-arm64.img.xz",
+  "released_at": "2026-02-28T06:20:00Z"
 }
