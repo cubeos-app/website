@@ -1,8 +1,22 @@
 {
   "version": "0.2.0-beta.06",
+  "platforms": {
+    "raspberrypi": {
+      "full_url": "https://releases.cubeos.app/0.2.0-beta.06/cubeos-0.2.0-beta.06-arm64.img.xz",
+      "lite_url": "https://releases.cubeos.app/0.2.0-beta.06/cubeos-0.2.0-beta.06-lite-arm64.img.xz",
+      "full_filename": "cubeos-0.2.0-beta.06-arm64.img.xz",
+      "lite_filename": "cubeos-0.2.0-beta.06-lite-arm64.img.xz"
+    },
+    "bananapim4zero": {
+      "full_url": "https://releases.cubeos.app/0.2.0-beta.06/cubeos-0.2.0-beta.06-bananapim4zero-arm64.img.xz",
+      "lite_url": "https://releases.cubeos.app/0.2.0-beta.06/cubeos-0.2.0-beta.06-lite-bananapim4zero-arm64.img.xz",
+      "full_filename": "cubeos-0.2.0-beta.06-bananapim4zero-arm64.img.xz",
+      "lite_filename": "cubeos-0.2.0-beta.06-lite-bananapim4zero-arm64.img.xz"
+    }
+  },
   "full_url": "https://releases.cubeos.app/0.2.0-beta.06/cubeos-0.2.0-beta.06-arm64.img.xz",
   "lite_url": "https://releases.cubeos.app/0.2.0-beta.06/cubeos-0.2.0-beta.06-lite-arm64.img.xz",
   "full_filename": "cubeos-0.2.0-beta.06-arm64.img.xz",
   "lite_filename": "cubeos-0.2.0-beta.06-lite-arm64.img.xz",
-  "released_at": "2026-03-20T12:30:30Z"
+  "released_at": "2026-03-20T13:44:05Z"
 }
